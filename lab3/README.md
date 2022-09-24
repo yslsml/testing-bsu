@@ -40,6 +40,15 @@ Steps:
   
 Expected result: "Total" is equal to the sum of items' prices in bag.
 
+## Test case №4
+Name: Deleting item from the bag.      
+Preconditions: Internet connection, opened https://www.nike.com, chosen location: Canada, logged in, 1 item is in the bag.    
+Steps:
+  1. Go to the bag (click on the bag icon in the upper-right corner).
+  2. Click on the trashcan icon.
+  
+Expected result: The message "There are no items in your bag." appeared on the page of the bag.
+
 
 
 
