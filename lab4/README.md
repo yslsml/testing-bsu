@@ -109,7 +109,7 @@ Steps:
   3. Enter "abcde" in the field that appears below.
   4. Press "Apply".
 
-Expected result: The error message "Error. Sorry, the code entered is incorrect or invalid. Please try again, or enter another code.[ Code: 4CB0532B ]" is shown in the dialog box.
+Expected result: The error message "Error. Sorry, the code entered is incorrect or invalid. Please try again, or enter another code." is shown in the dialog box.
 
 ## Test case №8
 Name: **Changing quantity of item.**      
