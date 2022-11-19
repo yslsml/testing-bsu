@@ -8,10 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
 public class BigGeekHomePage extends AbstractPage {
-    public static String BIG_GEEK_PAGE_URL = "https://biggeek.ru";
+    public static String BIG_GEEK_HOME_PAGE_URL = "https://biggeek.ru";
 
     @FindBy(xpath = "/html/body/div[1]/main/div[4]/div/button")
     private WebElement closeModelWindowButton;
@@ -24,7 +22,7 @@ public class BigGeekHomePage extends AbstractPage {
     }
 
     public BigGeekHomePage openPage() {
-        driver.get(BIG_GEEK_PAGE_URL);
+        driver.get(BIG_GEEK_HOME_PAGE_URL);
         new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[1]/main/div[4]/div/button")));
         closeModelWindowButton.click();
