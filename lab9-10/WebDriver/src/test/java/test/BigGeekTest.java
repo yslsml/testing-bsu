@@ -13,7 +13,6 @@ import page.BigGeekItemPage;
 public class BigGeekTest {
 
     public static String SEARCH_QUERY_FOR_COMMON_RESULTS = "iphone 13 mini pink 512GB";
-    public static String EMPTY_MESSAGE = "";
 
     private WebDriver chromeDriver;
 
@@ -36,11 +35,11 @@ public class BigGeekTest {
 
     @Test
     public void addItemToCartTest() {
-        WebElement addedItemToCartResultMessage = new BigGeekItemPage(chromeDriver)
+        boolean isAddedItemToCartResultMessageDisplayed = new BigGeekItemPage(chromeDriver)
                 .openPage()
                 .addItemToCart()
-                .getAddedItemToCartConfirmMessage();
-        Assert.assertNotEquals(addedItemToCartResultMessage.getText(), EMPTY_MESSAGE, "Item is not added to the cart!");
+                .isModalCartWindowDisplayed();
+        Assert.assertTrue(isAddedItemToCartResultMessageDisplayed, "Item is not added to the cart!");
     }
 
     @AfterMethod(alwaysRun = true)
