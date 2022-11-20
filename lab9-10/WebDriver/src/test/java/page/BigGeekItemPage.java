@@ -13,8 +13,8 @@ public class BigGeekItemPage extends AbstractPage{
     @FindBy(xpath = "/html/body/div[1]/main/div[2]/section[1]/div/div/div[2]/div/div[2]/div/div[4]/a")
     private WebElement addToCartButton;
 
-    @FindBy(xpath = "/html/body/div[2]/div/div/div/p[1]")
-    private WebElement addedToCartConfirmMessage;
+    @FindBy(xpath = "/html/body/div[2]/div/div")
+    private WebElement modalCartWindow;
 
     public BigGeekItemPage(WebDriver driver) {
         super(driver);
@@ -27,10 +27,10 @@ public class BigGeekItemPage extends AbstractPage{
         return this;
     }
 
-    public WebElement getAddedItemToCartConfirmMessage() {
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[2]/div/div/div/p[1]")));
-        return addedToCartConfirmMessage;
+    public boolean isModalCartWindowDisplayed() {
+        WebElement modalCartWindow = new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.className("cart-modal__product-wrap")));
+        return modalCartWindow.isDisplayed();
     }
 
     @Override
