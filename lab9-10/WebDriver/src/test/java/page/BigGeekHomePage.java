@@ -11,6 +11,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class BigGeekHomePage extends AbstractPage {
     public static String BIG_GEEK_HOME_PAGE_URL = "https://biggeek.ru";
 
+    @FindBy(xpath = "//*[@id=\"digi-shield\"]/div[3]/div/div/div[2]/div/div[3]/button")
+    private WebElement searchButton;
+
     @FindBy(xpath = "/html/body/div[1]/main/div[4]/div/button")
     private WebElement closeModelWindowButton;
 
@@ -31,7 +34,9 @@ public class BigGeekHomePage extends AbstractPage {
 
     public BigGeekSearchResultPage searchForTerms(String searchQuery) {
         searchInput.sendKeys(searchQuery);
-        searchInput.sendKeys(Keys.ENTER);
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"digi-shield\"]/div[3]/div/div/div[2]/div/div[3]/button")));
+        searchButton.click();
         return new BigGeekSearchResultPage(driver);
     }
 
