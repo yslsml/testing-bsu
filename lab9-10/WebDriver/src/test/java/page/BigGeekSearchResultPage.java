@@ -13,15 +13,15 @@ import java.util.List;
 
 public class BigGeekSearchResultPage extends AbstractPage {
 
-    @FindBys({@FindBy(xpath = "//*[@id=\"digi-shield\"]/div[2]/div[2]/div/div/div[2]/div[2]/div/div")})
+    @FindBy(xpath = "//*[@id=\"digi-shield\"]/div[2]/div[2]/div/div/div[2]/div[2]/div/div")
     private List<WebElement> productsSearchResultList;
 
     public BigGeekSearchResultPage(WebDriver driver) {
         super(driver);
     }
 
-    public int numberOfCommonSearchResults() {
-        new WebDriverWait(driver, Duration.ofSeconds(20))
+    public int getNumberOfCommonSearchResults() {
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//*[@id=\"digi-shield\"]/div[2]/div[2]/div/div/div[2]/div[2]/div/div")));
         return productsSearchResultList.size();
     }

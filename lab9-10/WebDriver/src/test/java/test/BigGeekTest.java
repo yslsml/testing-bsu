@@ -22,13 +22,12 @@ public class BigGeekTest {
         chromeDriver.manage().window().maximize();
     }
 
-
     @Test
     public void handleCommonSearchResultTest() {
         int numberOfCommonSearchResults = new BigGeekHomePage(chromeDriver)
                 .openPage()
                 .searchForTerms(SEARCH_QUERY_FOR_COMMON_RESULTS)
-                .numberOfCommonSearchResults();
+                .getNumberOfCommonSearchResults();
         Assert.assertTrue(numberOfCommonSearchResults > 0,
                 "Search result for \"" + SEARCH_QUERY_FOR_COMMON_RESULTS + "\" is empty!");
     }
