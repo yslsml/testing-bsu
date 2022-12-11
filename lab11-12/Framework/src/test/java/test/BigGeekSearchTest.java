@@ -1,9 +1,12 @@
 package test;
 
+import model.Product;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import page.BigGeekHomePage;
 import page.BigGeekSearchResultPage;
+import service.ProductCreator;
+import service.TestDataReader;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -11,13 +14,11 @@ import static org.hamcrest.Matchers.*;
 import java.util.List;
 
 public class BigGeekSearchTest extends CommonConditions {
-    public static String SEARCH_QUERY_FOR_COMMON_RESULTS = "iphone 13 mini pink 512GB";
-    public static String INVALID_SEARCH_QUERY = "fjfjgf";
-    public static String SEARCH_QUERY_FOR_SPECIFIC_SEARCH = "apple";
-    public static String SUBSTRING_OF_SEARCHED_ITEMS = "Apple iPhone 13";
-    public static String EMPTY_SEARCH_RESULT_MESSAGE = "По вашему запросу ничего не найдено";
-    public static String PRICE_FOR_SPECIFIC_SEARCH = "199 ";
-    public static String PRODUCT_NAME_FOR_SPECIFIC_SEARCH = "Переходник для адаптера питания Apple с евро-вилкой";
+    public static String SEARCH_QUERY_FOR_COMMON_RESULTS = TestDataReader.getTestData("testdata.search_query_for_common_results");
+    public static String INVALID_SEARCH_QUERY = TestDataReader.getTestData("testdata.invalid_search_query");
+    public static String SEARCH_QUERY_FOR_SPECIFIC_SEARCH = TestDataReader.getTestData("testdata.search_query_for_specific_search");
+    public static String SUBSTRING_OF_SEARCHED_ITEMS = TestDataReader.getTestData("testdata.substring_of_searched_items");
+    public static String EMPTY_SEARCH_RESULT_MESSAGE = TestDataReader.getTestData("testdata.empty_search_result_message");
 
     @Test
     public void handleCommonSearchResultTest() {
@@ -42,18 +43,20 @@ public class BigGeekSearchTest extends CommonConditions {
 
     @Test
     public void handleSpecificSearchResultTest() {
+        Product testProduct = ProductCreator.withCredentialsFromSpecificProperty();
+
         BigGeekSearchResultPage bigGeekSearchResultPage = new BigGeekHomePage(driver)
                 .openPage()
                 .searchForTerms(SEARCH_QUERY_FOR_SPECIFIC_SEARCH)
-                .enterPriceRange(PRICE_FOR_SPECIFIC_SEARCH);
+                .enterPriceRange(testProduct.getPrice());
 
         String obtainedProductName = bigGeekSearchResultPage
                 .getProductName();
         String obtainedProductPrice = bigGeekSearchResultPage
                 .getProductPrice();
 
-        assertThat(obtainedProductName, is(equalTo(PRODUCT_NAME_FOR_SPECIFIC_SEARCH)));
-        assertThat(obtainedProductPrice, is(equalTo(PRICE_FOR_SPECIFIC_SEARCH)));
+        assertThat(obtainedProductName, is(equalTo(testProduct.getName())));
+        assertThat(obtainedProductPrice, is(equalTo(testProduct.getPrice())));
     }
 
 }
