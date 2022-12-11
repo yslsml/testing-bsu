@@ -11,7 +11,7 @@ import java.util.*;
 
 public class BigGeekSearchResultPage extends AbstractPage {
 
-    private final String productOfSpecificSearchResultXpath = "//div[@class=\"digi-product digi-has-not-color\"]";
+    private final String productOfSpecificSearchResultXpath = "//div[@class=\"digi-product\"]";
     private final String productsSearchResultListXpath = "//div[@class=\"digi-products-grid digi-products-grid_horde\"]/div";
     private final String emptySearchResultMessageXpath = "//div[@class=\"digi-empty__wrapper\"]/p";
     private final String obtainedProductNameXpath = "//a[@class=\"digi-product__label\"]";
