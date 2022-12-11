@@ -1,10 +1,13 @@
 package test;
 
+import model.Product;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import page.BigGeekCartPage;
 import page.BigGeekItemPage;
+import service.ProductCreator;
+import service.TestDataReader;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -12,11 +15,9 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 public class BigGeekCartTest extends CommonConditions {
-    public final String PRODUCT_NAME = "Apple iPhone 13 128GB («Тёмная ночь» | Midnight)";
-    public final String PRODUCT_PRICE = "57 990 ";
-    public final String APPROVAL_REMOVAL_MESSAGE = "Apple iPhone 13 128GB («Тёмная ночь» | Midnight) — товар удалён из корзины";
-    public final String INVALID_PROMO_CODE = "abcdef";
-    public final String INVALID_PROMO_CODE_MESSAGE = "Сертификат недействителен";
+    public final String APPROVAL_REMOVAL_MESSAGE = TestDataReader.getTestData("testdata.approval_removal_message");
+    public final String INVALID_PROMO_CODE = TestDataReader.getTestData("testdata.invalid_promo_code");
+    public final String INVALID_PROMO_CODE_MESSAGE = TestDataReader.getTestData("testdata.invalid_promo_code_message");
 
     @BeforeMethod(onlyForGroups = {"addedItemToCartPreconditionIsNeeded"})
     public void addItemToCart() {
@@ -27,6 +28,8 @@ public class BigGeekCartTest extends CommonConditions {
 
     @Test
     public void addItemToCartTest() {
+        Product testProduct = ProductCreator.withCredentialsFromProperty();
+
         new BigGeekItemPage(driver)
                 .openPage()
                 .addItemToCart();
@@ -38,8 +41,8 @@ public class BigGeekCartTest extends CommonConditions {
         String addedProductPrice = bigGeekCartPage
                 .getProductPrice();
 
-        assertThat(addedProductName, is(equalTo(PRODUCT_NAME)));
-        assertThat(addedProductPrice, is(equalTo(PRODUCT_PRICE)));
+        assertThat(addedProductName, is(equalTo(testProduct.getName())));
+        assertThat(addedProductPrice, is(equalTo(testProduct.getPrice())));
     }
 
     @Test(groups = {"addedItemToCartPreconditionIsNeeded"})
@@ -53,6 +56,8 @@ public class BigGeekCartTest extends CommonConditions {
 
     @Test(groups = {"addedItemToCartPreconditionIsNeeded"})
     public void restoreItemToCartTest() {
+        Product testProduct = ProductCreator.withCredentialsFromProperty();
+
         BigGeekCartPage bigGeekCartPage = new BigGeekCartPage(driver)
                 .openPage()
                 .removeItemFromCart()
@@ -60,8 +65,8 @@ public class BigGeekCartTest extends CommonConditions {
         String restoredProductName = bigGeekCartPage.getProductName();
         String restoredProductPrice = bigGeekCartPage.getProductPrice();
 
-        assertThat(restoredProductName, is(equalTo(PRODUCT_NAME)));
-        assertThat(restoredProductPrice, is(equalTo(PRODUCT_PRICE)));
+        assertThat(restoredProductName, is(equalTo(testProduct.getName())));
+        assertThat(restoredProductPrice, is(equalTo(testProduct.getPrice())));
     }
 
     @Test(groups = {"addedItemToCartPreconditionIsNeeded"})
