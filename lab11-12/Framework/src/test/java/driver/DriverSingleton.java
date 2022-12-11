@@ -17,15 +17,8 @@ public class DriverSingleton {
 
     public static WebDriver getDriver(){
 
-        Properties properties = new Properties();
-        try (FileInputStream inputStream = new FileInputStream("src/test/resources/dev.properties")){
-            properties.load(inputStream);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         if (null == driver){
-            switch (properties.getProperty("browser")) {
+            switch (System.getProperty("browser")) {
                 case "firefox": {
                     WebDriverManager.firefoxdriver().setup();
                     driver = new FirefoxDriver();
