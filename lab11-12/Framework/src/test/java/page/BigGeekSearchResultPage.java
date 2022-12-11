@@ -1,13 +1,11 @@
 package page;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import util.WaitUtils;
 
 import java.util.*;
 
@@ -49,26 +47,22 @@ public class BigGeekSearchResultPage extends AbstractPage {
     }
 
     public String getProductName() {
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(obtainedProductNameXpath)));
+        WaitUtils.waitForPresenceOfAllElementsLocatedByXpath(obtainedProductNameXpath, driver);
         return obtainedProductName.getText();
     }
 
     public String getProductPrice() {
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(obtainedProductPriceXpath)));
+        WaitUtils.waitForPresenceOfAllElementsLocatedByXpath(obtainedProductPriceXpath, driver);
         return obtainedProductPrice.getText().substring(0, obtainedProductPrice.getText().length() - 1);
     }
 
     public String getEmptySearchResultMessage() {
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(emptySearchResultMessageXpath)));
+        WaitUtils.waitForPresenceOfAllElementsLocatedByXpath(emptySearchResultMessageXpath, driver);
         return emptySearchResultMessage.getText();
     }
 
     public BigGeekSearchResultPage enterPriceRange(String priceRange) {
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(priceRangeFiltersXpath)));
+        WaitUtils.waitForPresenceOfAllElementsLocatedByXpath(priceRangeFiltersXpath, driver);
         for (WebElement priceRangeFilter : priceRangeFilters) {
             int numberOfDigitsToClean = 7;
             for (int i = 0; i < numberOfDigitsToClean; i++) {
@@ -78,8 +72,7 @@ public class BigGeekSearchResultPage extends AbstractPage {
             priceRangeFilter.sendKeys(Keys.ENTER);
         }
 
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.numberOfElementsToBe(By.xpath(productOfSpecificSearchResultXpath), 1));
+        WaitUtils.waitForNumberOfElementsLocatedByXpathToBe(productOfSpecificSearchResultXpath, 1, driver);
         return this;
     }
 

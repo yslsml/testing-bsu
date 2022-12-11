@@ -1,12 +1,10 @@
 package page;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import util.WaitUtils;
 
 public class BigGeekItemPage extends AbstractPage{
     public static String BIG_GEEK_ITEM_PAGE_URL = "https://biggeek.ru/products/apple-iphone-13-128gb-midnight";
@@ -22,8 +20,7 @@ public class BigGeekItemPage extends AbstractPage{
     }
 
     public BigGeekItemPage addItemToCart() {
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(addToCartButtonXpath)));
+        WaitUtils.waitForPresenceOfAllElementsLocatedByXpath(addToCartButtonXpath, driver);
         addToCartButton.click();
         return this;
     }
